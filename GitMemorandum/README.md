@@ -53,3 +53,16 @@ cat ~/.ssh/.ssh/id_rsa.pub
 ### 三、dev分支执行pull origin main命令的补救 
 
 （dev）变成了 (dev|MERGING)
+
+### 四、Git 只修改首字母大小写进行重命名失败
+先重命名成其他名字，再修改回来。
+例如
+```
+git mv test Test
+报错 "Rename from 'test' to 'Test/test' failed. Should I try again? (y/n)"
+可以先
+git mv test Test_
+再
+git mv Test_ Test
+
+```
