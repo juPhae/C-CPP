@@ -1,3 +1,0 @@
-GoogleCppStyleGuide：
-
-![](./static/GoogleCppStyleGuide.png)
