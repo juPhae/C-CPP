@@ -30,23 +30,23 @@ Overwrite输入“y”，后面直接按回车，一定不要设置密码
 cat ~/.ssh/.ssh/id_rsa.pub
 ```
 
-![](.\static\SSH-Cancel-erification\cat_newkeygen.png)
+![](./static/SSH-Cancel-erification/cat_newkeygen.png)
 
 然后复制，并且在Github的SSH keys新建一个SSH keys把刚刚复制的填进去
 
-![](.\static\SSH-Cancel-erification\paste_newketygen.png)
+![](./static/SSH-Cancel-erification/paste_newketygen.png)
 
 #### 3.重新执行pull命令
 
 不用输入密码了
 
-![](.\static\SSH-Cancel-erification\pull_again.png)
+![](./static/SSH-Cancel-erification/pull_again.png)
 
 #### 4.删除旧的Github的SSH keys
 
 只保留一个Keygen
 
-![](.\static\SSH-Cancel-erification\delet_oldkeygen.png)
+![](./static/SSH-Cancel-erification/delet_oldkeygen.png)
 
 到此，成功把Git取消了每次pull和push都要输入密码验证
 
