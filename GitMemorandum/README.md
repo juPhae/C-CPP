@@ -4,7 +4,7 @@
 
 ## Common commands and methods
 
-### ssh连接取消每次密码验证
+### 一、ssh连接取消每次密码验证
 
 出现这种每次pull都要输入密码验证的
 
@@ -44,3 +44,12 @@ cat ~/.ssh/.ssh/id_rsa.pub
 
 
 
+### 二、push冲突
+
+
+
+
+
+### 三、dev分支执行pull origin main命令的补救 
+
+（dev）变成了 (dev|MERGING)
