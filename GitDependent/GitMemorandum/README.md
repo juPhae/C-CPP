@@ -1,8 +1,8 @@
 
 
-# Git Memorandum
+# Git 
 
-## Common commands and methods
+## 记录
 
 ### 一、ssh连接取消每次密码验证
 
@@ -52,11 +52,36 @@ cat ~/.ssh/.ssh/id_rsa.pub
 
 
 
-### 二、push冲突
+### 二、merge 报错
+
+在main分支里面merge报错
+
+```
+git merge origin dev
+
+fatal: refusing to merge unrelated histories
+
+```
 
 
 
+添加 --allow-unrelated-histories后可以正常push
 
+
+
+```
+git merge dev --allow-unrelated-histories
+
+git push
+```
+
+
+
+![](./static/merge/merge_error.png)
+
+如果是`git pull`或者`git push`报`fatal: refusing to merge unrelated histories`
+同理：
+`git pull origin master --allow-unrelated-histories`
 
 ### 三、dev分支执行pull origin main命令的补救 
 
