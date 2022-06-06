@@ -1,14 +1,12 @@
 谷歌编码规范：
 
-原文文档：
+英文地址：[谷歌C++风格指南 (google.github.io)](https://google.github.io/styleguide/cppguide.html)
 
-中文文档：
+中文地址：
+
+[C++ 风格指南 - 内容目录 — Google 开源项目风格指南 (zh-google-styleguide.readthedocs.io)](https://zh-google-styleguide.readthedocs.io/en/latest/google-cpp-styleguide/contents/)
 
 
-
-
-
-https://zh-google-styleguide.readthedocs.io/en/latest/google-cpp-styleguide/contents/
 
 GoogleCppStyleGuide：
 
