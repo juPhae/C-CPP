@@ -39,7 +39,7 @@ https://blog.csdn.net/lizhijian21/article/details/83417747
 #define IS_IOS_PLATFORM 0
 #endif
 
-ZJ_NAMESPACE_BEGIN
+
 
 class CTimer
 {
@@ -321,5 +321,5 @@ int CTimer::TimeDifFrimGMT()
     return 0;
 }
 
-ZJ_NAMESPACE_END
+
 #endif //__CTIMER_HPP__
