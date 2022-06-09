@@ -138,6 +138,11 @@ public:
         //填充日期年月日
         targetTime = "1970-01-02 " + targetTime;
         nTime = "1970-01-01 " + nTime;
+      } else if (compare_time == 0) {
+        //此刻
+        targetTime = "1970-01-01 " + targetTime;
+        nTime = "1970-01-01 " + nTime;
+
       }
     }
     long obj_time = StringToTime(targetTime);
@@ -196,6 +201,11 @@ public:
         //次日
         //填充日期年月日
         targetTime = "1970-01-02 " + targetTime;
+        nTime = "1970-01-01 " + nTime;
+
+      } else if (compare_time == 0) {
+        //此刻
+        targetTime = "1970-01-01 " + targetTime;
         nTime = "1970-01-01 " + nTime;
 
       }
