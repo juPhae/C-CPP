@@ -83,13 +83,23 @@ git push
 同理：
 `git pull origin master --allow-unrelated-histories`
 
-### 三、dev分支执行pull origin main命令的补救 
 
-（dev）变成了 (dev|MERGING)
 
-### 四、Git 只修改首字母大小写进行重命名失败
+### 三、Git 只修改首字母大小写进行重命名失败
+**原因 - git默认是大小写不敏感**
+当git上文件名大小写重命名的修改时（git大小写敏感/默认不敏感），如何重命名并提交
+
+#### 解决方案1
+
+git设置成大小写敏感 `git config core.ignorecase false`（其实这也是个坑）
+
+git大小写不敏感，也就是默认的情况(建议默认)
+
+#### 解决方案2
+
 先重命名成其他名字，再修改回来。
 例如
+
 ```
 git mv test Test
 报错： 
@@ -103,5 +113,5 @@ git mv Test_ Test
 
 通过这样来修改，达到只改变首字母的重命名的效果。
 
-### 五、同步远程分支
+### 
 
