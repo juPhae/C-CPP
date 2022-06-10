@@ -141,9 +141,7 @@ public:
 
 template <typename callable, class... arguments>
   void AsyncWait(std::string target_time, callable &&f, arguments &&... args) {
-std::cout << target_time <<std::endl;
     int after = CalculateTimeInterval(target_time);
-    std::cout << after <<std::endl;
     std::function<typename std::result_of<callable(arguments...)>::type()> task
 
         (std::bind(std::forward<callable>(f),
