@@ -1,4 +1,3 @@
-#ifndef _X_TIMER_HPP__
 /*******************************************************************************
  *FileName: Timer.hpp
  *version:  1.0
@@ -11,6 +10,8 @@
  *LastEditors: phae
  *LastEditTime: 2022-06-10 12:12:34
  ********************************************************************************/
+
+#ifndef _X_TIMER_HPP__
 #define _X_TIMER_HPP__
 
 #include <chrono>
@@ -22,6 +23,9 @@
 #include <string.h>
 #include <thread>
 #include <unordered_map>
+
+
+namespace cti {
 
 typedef std::function<void(void *)> TimerEvent;
 typedef std::pair<int64_t, uint32_t> TimerId;
@@ -565,6 +569,7 @@ long StringToTime(std::string str) {
 }
 
 #endif
+
 long CalculateTimeInterval(std::string targetTime) {
   std::string nTime = GetNowTime(targetTime.length()); //获取现在的时间
   // int msTime = 0;
@@ -757,6 +762,8 @@ void TimerQueue::handleTimerEvent() {
     }
   }
 }
+
+} // namespace cti
 
 #endif //_X_TIMER_HPP__
 
