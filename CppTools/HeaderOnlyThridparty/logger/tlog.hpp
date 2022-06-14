@@ -32,6 +32,36 @@
               Tlog::tlog_get_local_time().c_str(), Tlog::level_str(level),     \
               _NEW_FILE_, __LINE__, log_string);
 
+#define tlog_debug_printf(output_file, log_string)                              \
+  tlog_printf(output_file, "[%s] [%s] [%s:%d] %s\n",                           \
+              Tlog::tlog_get_local_time().c_str(), Tlog::level_str(TLOG_DEBUG), \
+              _NEW_FILE_, __LINE__, log_string);
+
+#define tlog_info_printf(output_file, log_string)                              \
+  tlog_printf(output_file, "[%s] [%s] [%s:%d] %s\n",                           \
+              Tlog::tlog_get_local_time().c_str(), Tlog::level_str(TLOG_INFO), \
+              _NEW_FILE_, __LINE__, log_string);
+
+#define tlog_notice_printf(output_file, log_string)                              \
+  tlog_printf(output_file, "[%s] [%s] [%s:%d] %s\n",                           \
+              Tlog::tlog_get_local_time().c_str(), Tlog::level_str(TLOG_NOTICE), \
+              _NEW_FILE_, __LINE__, log_string);
+
+#define tlog_warn_printf(output_file, log_string)                              \
+  tlog_printf(output_file, "[%s] [%s] [%s:%d] %s\n",                           \
+              Tlog::tlog_get_local_time().c_str(), Tlog::level_str(TLOG_WARN), \
+              _NEW_FILE_, __LINE__, log_string);
+
+#define tlog_error_printf(output_file, log_string)                              \
+  tlog_printf(output_file, "[%s] [%s] [%s:%d] %s\n",                           \
+              Tlog::tlog_get_local_time().c_str(), Tlog::level_str(TLOG_ERROR), \
+              _NEW_FILE_, __LINE__, log_string);
+
+#define tlog_fatal_printf(output_file, log_string)                              \
+  tlog_printf(output_file, "[%s] [%s] [%s:%d] %s\n",                           \
+              Tlog::tlog_get_local_time().c_str(), Tlog::level_str(TLOG_FATAL), \
+              _NEW_FILE_, __LINE__, log_string);
+
 #endif //_TLOG_CUSTOM
 
 extern "C" {
