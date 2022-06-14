@@ -20,47 +20,59 @@
 
 #ifdef _TLOG_CUSTOM
 
+#include <string.h>
 #include <sys/timeb.h>
+
+#include <cstdarg>
+#include <stdarg.h>
+
 //切割__FILE__宏的绝对路径，只保留一个源文件名称
 #define _NEW_FILE_                                                             \
   (strrchr(__FILE__, '/')                                                      \
        ? strrchr(__FILE__, '/') + 1                                            \
        : strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
 
-#define tlog_level_printf(output_file, level, log_string)                      \
-  tlog_printf(output_file, "[%s] [%s] [%s:%d] %s\n",                           \
-              Tlog::tlog_get_local_time().c_str(), Tlog::level_str(level),     \
-              _NEW_FILE_, __LINE__, log_string);
 
-#define tlog_debug_printf(output_file, log_string)                              \
-  tlog_printf(output_file, "[%s] [%s] [%s:%d] %s\n",                           \
-              Tlog::tlog_get_local_time().c_str(), Tlog::level_str(TLOG_DEBUG), \
-              _NEW_FILE_, __LINE__, log_string);
+#define tlog_level_printf(output_file, level, fmt, ...)                             \
+  tlog_printf(output_file, "[%s] [%s] [%s:%d] " fmt"\n",                       \
+              Tlog::tlog_get_local_time().c_str(),                         \
+              Tlog::level_str(level), _NEW_FILE_, __LINE__, ##__VA_ARGS__)
 
-#define tlog_info_printf(output_file, log_string)                              \
-  tlog_printf(output_file, "[%s] [%s] [%s:%d] %s\n",                           \
-              Tlog::tlog_get_local_time().c_str(), Tlog::level_str(TLOG_INFO), \
-              _NEW_FILE_, __LINE__, log_string);
 
-#define tlog_notice_printf(output_file, log_string)                              \
-  tlog_printf(output_file, "[%s] [%s] [%s:%d] %s\n",                           \
-              Tlog::tlog_get_local_time().c_str(), Tlog::level_str(TLOG_NOTICE), \
-              _NEW_FILE_, __LINE__, log_string);
 
-#define tlog_warn_printf(output_file, log_string)                              \
-  tlog_printf(output_file, "[%s] [%s] [%s:%d] %s\n",                           \
-              Tlog::tlog_get_local_time().c_str(), Tlog::level_str(TLOG_WARN), \
-              _NEW_FILE_, __LINE__, log_string);
+#define tlog_debug_printf(output_file, fmt, ...)                             \
+  tlog_printf(output_file, "[%s] [%s] [%s:%d] " fmt"\n",                       \
+              Tlog::tlog_get_local_time().c_str(),                         \
+              Tlog::level_str(TLOG_DEBUG), _NEW_FILE_, __LINE__, ##__VA_ARGS__)
 
-#define tlog_error_printf(output_file, log_string)                              \
-  tlog_printf(output_file, "[%s] [%s] [%s:%d] %s\n",                           \
-              Tlog::tlog_get_local_time().c_str(), Tlog::level_str(TLOG_ERROR), \
-              _NEW_FILE_, __LINE__, log_string);
+#define tlog_info_printf(output_file, fmt, ...)                             \
+  tlog_printf(output_file, "[%s] [%s] [%s:%d] " fmt"\n",                       \
+              Tlog::tlog_get_local_time().c_str(),                         \
+              Tlog::level_str(TLOG_INFO), _NEW_FILE_, __LINE__, ##__VA_ARGS__)
 
-#define tlog_fatal_printf(output_file, log_string)                              \
-  tlog_printf(output_file, "[%s] [%s] [%s:%d] %s\n",                           \
-              Tlog::tlog_get_local_time().c_str(), Tlog::level_str(TLOG_FATAL), \
-              _NEW_FILE_, __LINE__, log_string);
+
+
+#define tlog_notice_printf(output_file, fmt, ...)                             \
+  tlog_printf(output_file, "[%s] [%s] [%s:%d] " fmt"\n",                       \
+              Tlog::tlog_get_local_time().c_str(),                         \
+              Tlog::level_str(TLOG_NOTICE), _NEW_FILE_, __LINE__, ##__VA_ARGS__)
+
+#define tlog_warn_printf(output_file, fmt, ...)                             \
+  tlog_printf(output_file, "[%s] [%s] [%s:%d] " fmt"\n",                       \
+              Tlog::tlog_get_local_time().c_str(),                         \
+              Tlog::level_str(TLOG_WARN), _NEW_FILE_, __LINE__, ##__VA_ARGS__)
+
+
+#define tlog_error_printf(output_file, fmt, ...)                             \
+  tlog_printf(output_file, "[%s] [%s] [%s:%d] " fmt"\n",                       \
+              Tlog::tlog_get_local_time().c_str(),                         \
+              Tlog::level_str(TLOG_ERROR), _NEW_FILE_, __LINE__, ##__VA_ARGS__)
+
+#define tlog_fatal_printf(output_file, fmt, ...)                             \
+  tlog_printf(output_file, "[%s] [%s] [%s:%d] " fmt"\n",                       \
+              Tlog::tlog_get_local_time().c_str(),                         \
+              Tlog::level_str(TLOG_FATAL), _NEW_FILE_, __LINE__, ##__VA_ARGS__)
+
 
 #endif //_TLOG_CUSTOM
 
@@ -95,14 +107,14 @@ struct tlog_time {
 /* set tlog not compress file when archive */
 #define TLOG_NOCOMPRESS (1 << 0)
 
-/* Set the segmentation mode to process the log, Used by the callback function
- * to return a full log*/
+/* Set the segmentation mode to process the log, Used by the
+ * callback function to return a full log*/
 #define TLOG_SEGMENT (1 << 1)
 
 /*
  multiwrite: enable multi process write mode.
-            NOTICE: maxlogsize in all prcesses must be same when enable this
- mode.
+            NOTICE: maxlogsize in all prcesses must be same when
+ enable this mode.
  */
 #define TLOG_MULTI_WRITE (1 << 2)
 
@@ -182,8 +194,8 @@ extern void tlog_exit(void);
 /*
 customize log output format
 steps:
-1. define format function, function must be defined as tlog_format_func, use
-snprintf or vsnprintf format log to buffer
+1. define format function, function must be defined as
+tlog_format_func, use snprintf or vsnprintf format log to buffer
 2. call tlog_reg_format_func to register format function.
 
 read _tlog_format for example.
@@ -292,6 +304,7 @@ public:
   }
 
   std::ostream &Stream() { return msg_; }
+
 #ifdef _TLOG_CUSTOM
 
   static std::string tlog_get_local_time() {
@@ -343,6 +356,15 @@ public:
       return nullptr;
     }
   };
+
+    // static inline int tlog_end_printf(struct tlog_log *log, const
+    // char *format, ...) {
+    //   int ret =  tlog_printf(log, "[%s] [%s] [%s:%d] ",
+    //               Tlog::tlog_get_local_time().c_str(),
+    //               Tlog::level_str(TLOG_WARN), _NEW_FILE_,
+    //               __LINE__, format);
+    //     return ret;
+    // }
 
 #endif //_TLOG_CUSTOM
 

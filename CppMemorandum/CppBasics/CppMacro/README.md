@@ -266,3 +266,25 @@ cout << (((1)>(x)?((1)>(2+3)?:(1):(2+3)):((x)>(2+3)?:(x):(2+3)))) << endl;
 
 宏函数，最好的替代方案是模板（最新的ANSI C++标准全面支持）
 
+
+
+## 可变参数的宏
+
+[(70条消息) C语言的变参函数（自定义printf格式输出log）_CeLino_的博客-CSDN博客](https://blog.csdn.net/Simpson_/article/details/103957594)
+
+[(70条消息) 【C++可变参数宏__VA_ARGS__】_J.Kuchiki的博客-CSDN博客_c++ 变参宏](https://blog.csdn.net/qq_43899283/article/details/124353503)
+
+[(70条消息) C 语言 define format与变参args 、 __VA_ARGS__使用_川大的小卡车哐哐哐的博客-CSDN博客](https://blog.csdn.net/qq_25546985/article/details/99683999)
+
+[(70条消息) args c语言 va - CSDN](https://www.csdn.net/tags/NtDaQgysMTQzNjYtYmxvZwO0O0OO0O0O.html)
+
+[(70条消息) C使用宏定义封装printf实现日志功能_HMJ_的博客-CSDN博客_宏定义printf](https://blog.csdn.net/u014436243/article/details/107386167)
+
+```
+[linux C++中宏定义的问题：error: unable to find string literal operator ‘operator""fmt’ with ‘const char [4]’, ‘long unsigned int’ arguments - ifdef - 博客园 (cnblogs.com)](https://www.cnblogs.com/cner/p/14084644.html)
+```
+
+
+
+[linux C++中宏定义的问题：error: unable to find string literal operator ‘operator&quot;&quot;fmt’]: https://www.cnblogs.com/cner/p/14084644.html
+
