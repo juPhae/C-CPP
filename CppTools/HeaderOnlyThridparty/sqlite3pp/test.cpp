@@ -10,12 +10,15 @@
 #include "dbg.hpp"
 #include "sqlite3pp.hpp"
 int main(int argc, char** argv) {
-    string path = "./test.db";
-    Sqlite3pp db(path.c_str());
-    db.db_select("user", "", "", "", "");
-    string cmd = "SELECT * FROM sqlite_master WHERE type='table' ";
-     db.db_sql(cmd);
-    db.db_create("test", "id,name");
-    db.db_insert("test", "id", "1");
-    return 0;
+  string path = "./test.db";
+  Sqlite3pp db(path.c_str());
+  string select_ = db.db_select("user", "", "", "", "");
+  string cmd = "SELECT * FROM sqlite_master WHERE type='table' ";
+  string sql_ = db.db_sql(cmd);
+
+  // db.db_create("test", "id,name");
+  // db.db_insert("test", "id", "1");
+  dbg(select_);
+  dbg(sql_);
+  return 0;
 }
