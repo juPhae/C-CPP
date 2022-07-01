@@ -282,7 +282,7 @@ string Sqlite3pp::db_select(string table, string colname, string where, string o
 
     if (!colname.empty())
 
-        sql_cmd = "SELECT" + colname + "FROM " + table;
+        sql_cmd = "SELECT " + colname + " FROM " + table;
 
 
 
