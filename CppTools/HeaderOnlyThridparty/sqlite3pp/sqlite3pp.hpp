@@ -19,19 +19,30 @@
 #include <sqlite3.h>
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <memory>
+// #include <stdexcept>
 #include <string>
-
 #include "json.hpp"
 
+
 using std::string;
+
+/*******
+ * *name:   is_exists
+ * *descripttion:  文件是否存在
+ * *msg:
+ * *param {string} &filename
+ * *return {*}
+ *******/
 
 class Sqlite3pp {
  private:
   static int callback(void *data, int argc, char **argv, char **col_name);
   static nlohmann::json j_cfg;
   static sqlite3 *database;
+  bool is_exists(const std::string &filename);
 
  public:
   Sqlite3pp(string file);
@@ -49,10 +60,21 @@ class Sqlite3pp {
 nlohmann::json Sqlite3pp::j_cfg;
 sqlite3 *Sqlite3pp::database = nullptr;
 
+inline bool Sqlite3pp::is_exists(const std::string &filename) {
+  struct stat buffer;
+  return (stat(filename.c_str(), &buffer) == 0);
+}
+
 Sqlite3pp::Sqlite3pp(string file) {
-  int rc;
-  rc = sqlite3_open(file.c_str(), &database);
-  assert(!rc);
+  bool file_exists = Sqlite3pp::is_exists(file);
+  if (file_exists) {
+    int rc;
+    rc = sqlite3_open(file.c_str(), &database);
+    assert(!rc);
+  } else {
+    string error = file + " does not exist";
+    throw std::invalid_argument(error);
+  }
 }
 
 Sqlite3pp::~Sqlite3pp() {
