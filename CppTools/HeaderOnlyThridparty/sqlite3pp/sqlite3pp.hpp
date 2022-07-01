@@ -96,7 +96,7 @@ string Sqlite3pp::db_sql(string sql) {
   }
 
   j_object.emplace("ErrorMsg", ErrorMsg);
-  j_object.emplace("Data", j_cfg.dump());
+  j_object.emplace("Data", j_cfg);
 
   string ret = j_object.dump();
   return ret;
