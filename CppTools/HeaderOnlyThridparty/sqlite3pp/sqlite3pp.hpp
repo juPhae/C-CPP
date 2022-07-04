@@ -522,7 +522,7 @@ string Sqlite3pp::db_update(string table, string set, string where) {
 
 
 
-    sql_cmd = "UPDATE " + table + " SET " + set + " WHERE " + where ";";
+    sql_cmd = "UPDATE " + table + " SET " + set + " WHERE " + where + ";";
 
 
 
