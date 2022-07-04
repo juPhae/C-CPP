@@ -452,8 +452,6 @@ string Sqlite3pp::db_select(string table, string colname, string where, string o
 
     string ret = db_sql(sql_cmd);
 
-    fprintf(stdout, "ret: %s \n", ret.c_str());
-
     return ret;
 
 }
