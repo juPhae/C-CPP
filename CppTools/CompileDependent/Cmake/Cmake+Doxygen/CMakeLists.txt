@@ -7,9 +7,6 @@ project(main LANGUAGES CXX)
 # 设置编译器
 set(CMAKE_CXX_COMPILER "g++")
 
-# # 搜集所有在指定路径下的源文件的文件名，将输出结果列表储存在指定的变量中
-# aux_source_directory(./ SRC_LIST)
-
 # 查找所有*.cpp,*.c源文件,并将文件列表保存到 DIR_LIB_SRCS 变量
 file(GLOB_RECURSE SRC_DIR_LIST_1 "src/*.cpp" "src/*.c") # 遍历获取src/路径下所有的*.cpp和*.c文件列表
 file(GLOB_RECURSE SRC_DIR_LIST_2 "thirdparty/*.cpp" "thirdparty/*.c") # 遍历获取source/路径下所有的*.cpp和*.c文件列表
@@ -17,12 +14,6 @@ file(GLOB_RECURSE SRC_DIR_LIST_2 "thirdparty/*.cpp" "thirdparty/*.c") # 遍历�
 message(STATUS "SRC_DIR_LIST_1 = ${SRC_DIR_LIST_1}") # 打印SRC_DIR_LIST_1中列表信息
 message(STATUS "SRC_DIR_LIST_2 = ${SRC_DIR_LIST_2}") # 打印SRC_DIR_LIST_2中列表信息
 
-# 将 SRC_DIR_LIST_1 SRC_DIR_LIST_2 中文件列表以静态库的方式加入工程
-# add_library(
-# ${PROJECT_NAME} STATIC
-# ${SRC_DIR_LIST_1}
-# ${SRC_DIR_LIST_2} 
-# )
 
 # 自动查找头文件路径函数(增加去重部分)     # FIND_INCLUDE_DIR()调用时要指定绝对路径
 macro(FIND_INCLUDE_DIR result curdir) # 定义函数,2个参数:存放结果result；指定路径curdir；
@@ -71,63 +62,14 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 # 设定存放编译出来的库文件的目录
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
-# #并且把该目录设为连接目录
-# LINK_DIRECTORIES( ${PROJECT_SOURCE_DIR}/lib)
-# #
-# find_package (Threads REQUIRED)
-# #设定头文件目录
-# INCLUDE_DIRECTORIES( ${PROJECT_SOURCE_DIR}/include)
 
-# #增加子文件夹(注意我们的src路径是通过子文件夹的形式添加的，在这里面也是可以些CMakeLists.txt的)
-# ADD_SUBDIRECTORY( ${PROJECT_SOURCE_DIR}/src)
-# #或是ADD_SUBDIRECTORY( src)
+message(STATUS "Build documentation open")
 
-# #连接共享库
-# target_link_libraries(main calculate_shared)
+# 引入 build_doxygen
+include(cmake/build_doxygen.cmake)
+build_doxygen() 
 
 
-find_package(Doxygen REQUIRED)
 
-function(add_doxygen_doc)
-  set(options)
-  set(oneValueArgs BUILD_DIR DOXY_FILE TARGET_NAME COMMENT)
-  set(multiValueArgs)
-
-  cmake_parse_arguments(DOXY_DOC
-    "${options}"
-    "${oneValueArgs}"
-    "${multiValueArgs}"
-    ${ARGN}
-    )
-
-  configure_file(
-    ${DOXY_DOC_DOXY_FILE}
-    ${DOXY_DOC_BUILD_DIR}/Doxyfile
-    @ONLY
-    )
-
-  add_custom_target(${DOXY_DOC_TARGET_NAME}
-    COMMAND
-      ${DOXYGEN_EXECUTABLE} Doxyfile
-    WORKING_DIRECTORY
-      ${DOXY_DOC_BUILD_DIR}
-    COMMENT
-      "Building ${DOXY_DOC_COMMENT} with Doxygen"
-    VERBATIM
-    )
-
-  message(STATUS "Added ${DOXY_DOC_TARGET_NAME} [Doxygen] target to build documentation")
-endfunction()
-
-add_doxygen_doc(
-  BUILD_DIR
-    ${CMAKE_CURRENT_BINARY_DIR}/_build
-  DOXY_FILE
-    ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile
-  TARGET_NAME
-    docs
-  COMMENT
-    "HTML documentation"
-  )
 # 添加多个源文件  生成可以执行的文件
 add_executable(main ${SRC_DIR_LIST_1} ${SRC_DIR_LIST_2})

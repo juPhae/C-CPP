@@ -1,4 +1,0 @@
-/home/lin/桌面/package/cmake-study/Cmake+Doxygen/build/CMakeFiles/rebuild_cache.dir
-/home/lin/桌面/package/cmake-study/Cmake+Doxygen/build/CMakeFiles/docs.dir
-/home/lin/桌面/package/cmake-study/Cmake+Doxygen/build/CMakeFiles/edit_cache.dir
-/home/lin/桌面/package/cmake-study/Cmake+Doxygen/build/CMakeFiles/main.dir
