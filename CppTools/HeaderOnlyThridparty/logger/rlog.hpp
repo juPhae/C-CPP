@@ -1,3 +1,6 @@
+
+//  https://github.com/LeechanX/Ring-Log
+
 #ifndef __RING_LOG_H__
 #define __RING_LOG_H__
 
