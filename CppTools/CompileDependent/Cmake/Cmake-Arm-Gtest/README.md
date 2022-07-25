@@ -3,7 +3,7 @@
 
 [参考链接2](https://github.com/TechNotesDoc/Notes/blob/master/Doc/01.Linux%E7%9B%B8%E5%85%B3/05.%E5%BC%80%E6%BA%90%E7%A8%8B%E5%BA%8F/02.gtest/gtest.md)
 
-** 由于用1.12.1版本编译出错 ，所以降级到1.10.0版本 **
+**由于用1.12.1版本编译出错 ，所以降级到1.10.0版本**
 
 ### 第一步
  下载googletest源码，交叉编译成动态链接库
@@ -17,20 +17,22 @@
 ### 第四步
 运行`./arm-gtest`
 
-    
-    Hello, World!
-    [==========] Running 3 tests from 1 test suite.
-    [----------] Global test environment set-up.
-    [----------] 3 tests from TestCase
-    [ RUN      ] TestCase.test1
-    [       OK ] TestCase.test1 (0 ms)
-    [ RUN      ] TestCase.test2
-    [       OK ] TestCase.test2 (0 ms)
-    [ RUN      ] TestCase.test3
-    [       OK ] TestCase.test3 (0 ms)
-    [----------] 3 tests from TestCase (0 ms total)
 
-    [----------] Global test environment tear-down
-    [==========] 3 tests from 1 test suite ran. (2 ms total)
-    [  PASSED  ] 3 tests.
+```shell
+Hello, World!
+[==========] Running 3 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 3 tests from TestCase
+[ RUN      ] TestCase.test1
+[       OK ] TestCase.test1 (0 ms)
+[ RUN      ] TestCase.test2
+[       OK ] TestCase.test2 (0 ms)
+[ RUN      ] TestCase.test3
+[       OK ] TestCase.test3 (0 ms)
+[----------] 3 tests from TestCase (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 3 tests from 1 test suite ran. (2 ms total)
+[  PASSED  ] 3 tests.
+```
 
