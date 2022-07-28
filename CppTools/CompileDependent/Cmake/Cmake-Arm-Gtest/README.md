@@ -12,7 +12,7 @@
 把编译好的 gtest 动态库和头文件添加到工程项目中
 
 ### 第三步
-把编译的工程项目中的可执行文件和libgtest.so（gtest动态链接库文件）一起上传到arm开放上。
+把编译的工程项目中的可执行文件和libgtest.so（gtest动态链接库文件）一起上传到arm开发板上，可用ldd查看是否成功链接到libgtest.so。
 
 ### 第四步
 运行`./arm-gtest`
