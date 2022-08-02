@@ -16,37 +16,37 @@
 #ifndef __SQLITE3PP_HPP__
 #define __SQLITE3PP_HPP__
 
+#include "dbg.hpp"
+#include "json.hpp"
 #include <assert.h>
+#include <memory>
 #include <sqlite3.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
-#include <memory>
-#include <string>
-#include "json.hpp"
-
 using std::string;
 
 static nlohmann::json j_cfg;
 static sqlite3 *database = nullptr;
 
 class Sqlite3pp {
- private:
+private:
   static int callback(void *data, int argc, char **argv, char **col_name) {
     int i;
-    j_cfg.clear();
-
+    nlohmann::json temp_json;
     for (i = 0; i < argc; i++) {
       if (col_name[i][0] == 'i') {
-        j_cfg.emplace(col_name[i], argv[i]);
+        temp_json.emplace(col_name[i], argv[i]);
       } else {
         argv[i] ? argv[i] : "";
-
-        j_cfg.emplace(col_name[i], argv[i]);
+        temp_json.emplace(col_name[i], argv[i]);
       }
     }
+    j_cfg.push_back(temp_json);
+
     return 0;
   }
 
@@ -55,7 +55,7 @@ class Sqlite3pp {
     return (stat(filename.c_str(), &buffer) == 0);
   }
 
- public:
+public:
   Sqlite3pp(string file) {
     bool file_exists = Sqlite3pp::is_exists(file);
     if (file_exists) {
@@ -69,7 +69,8 @@ class Sqlite3pp {
   }
 
   ~Sqlite3pp() {
-    if (database) sqlite3_close(database);
+    if (database)
+      sqlite3_close(database);
 
     database = nullptr;
   }
@@ -95,6 +96,7 @@ class Sqlite3pp {
     j_object.emplace("Data", j_cfg);
 
     string ret = j_object.dump();
+    j_cfg.clear();
     return ret;
   }
   string db_drop(string table);
@@ -129,12 +131,14 @@ class Sqlite3pp {
   string db_insert(string table, string cols, string vals) {
     string sql_cmd;
 
-    sql_cmd = "INSERT INTO " + table + " (" + cols + ") VALUES (" + vals + " );";
+    sql_cmd =
+        "INSERT INTO " + table + " (" + cols + ") VALUES (" + vals + " );";
     string ret = db_sql(sql_cmd.c_str());
 
     return ret;
   }
-  string db_select(string table, string colname, string where, string order, string limit) {
+  string db_select(string table, string colname, string where, string order,
+                   string limit) {
     string sql_cmd;
     string tmp;
     string end = ";";
@@ -160,7 +164,6 @@ class Sqlite3pp {
     }
     sql_cmd += end;
     string ret = db_sql(sql_cmd);
-
     return ret;
   }
 };
