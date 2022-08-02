@@ -1,13 +1,16 @@
 
-/**
- * @file sqlite3pp.hpp
- * @version v1.0
- * @author LZH
- * @date 2022-06-30 16:39:41
- * @brief  数据库接口文件
- * @details 自定义Sqlite3pp类，封装sqlite3常用的接口，无需手动操作指针来开关文件，在类析构会自动关闭文件。
- */
-
+/*******************************************************************************
+ *FileName: sqlite3pp.hpp
+ *version:
+ *Author: Phae
+ *Date: 2022-06-30 19:39:41
+ *Description:
+ *
+ *     Rely on JSON library files :   https://github.com/nlohmann/json
+ *
+ *LastEditors: Phae
+ *LastEditTime: 2022-06-30 21:59:12
+ ********************************************************************************/
 #pragma once
 
 #ifndef __SQLITE3PP_HPP__
@@ -19,8 +22,8 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <unistd.h>
 #include <memory>
-// #include <stdexcept>
 #include <string>
 #include "json.hpp"
 
