@@ -16,7 +16,6 @@
 #ifndef __SQLITE3PP_HPP__
 #define __SQLITE3PP_HPP__
 
-#include "dbg.hpp"
 #include "json.hpp"
 #include <assert.h>
 #include <memory>
@@ -99,7 +98,12 @@ public:
     j_cfg.clear();
     return ret;
   }
-  string db_drop(string table);
+  string db_drop(string table) {
+    string sql_cmd = "DROP TABLE " + table + ";";
+    // fprintf(stdout, "%s \n", sql_cmd.c_str());
+    string ret = db_sql(sql_cmd.c_str());
+    return ret;
+  }
   string db_delete(string table, string where) {
     string sql_cmd;
     if (!where.empty()) {
@@ -123,7 +127,7 @@ public:
   string db_update(string table, string set, string where) {
     string sql_cmd;
 
-    sql_cmd = "UPDATE " + table + " SET " + set + " WHERE " + ";";
+    sql_cmd = "UPDATE " + table + " SET " + set + " WHERE " + where + ";";
     string ret = db_sql(sql_cmd.c_str());
 
     return ret;
