@@ -33,7 +33,11 @@ set(GTEST_SO ${GTEST_SYSROOT}/lib)
 # #gtest 库文件路径加入到链接的路径中
 link_directories(${GTEST_SO})
 
+##指定 rpath目录 为当前目录，可执行文件和so文件在同一个目录
+set(CMAKE_SKIP_BUILD_RPATH FALSE)
+set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
+set(CMAKE_INSTALL_RPATH $ORIGIN)
 
 
 add_executable(arm-gtest ./src/main.cpp)
-target_link_libraries(arm-gtest gtest)         # 添加连接库
+target_link_libraries(arm-gtest gtest)         # 链接最终目录程序
