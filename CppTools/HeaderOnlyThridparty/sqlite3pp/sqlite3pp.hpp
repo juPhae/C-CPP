@@ -93,7 +93,6 @@ public:
 
     j_object.emplace("ErrorMsg", ErrorMsg);
     j_object.emplace("Data", j_cfg);
-
     string ret = j_object.dump();
     j_cfg.clear();
     return ret;
@@ -129,7 +128,6 @@ public:
 
     sql_cmd = "UPDATE " + table + " SET " + set + " WHERE " + where + ";";
     string ret = db_sql(sql_cmd.c_str());
-
     return ret;
   }
   string db_insert(string table, string cols, string vals) {
@@ -147,28 +145,29 @@ public:
     string tmp;
     string end = ";";
     if (!colname.empty()) {
-      sql_cmd = "SELECT" + colname + "FROM " + table;
+      sql_cmd = "SELECT " + colname + " FROM " + table;
     } else {
       sql_cmd = "SELECT * FROM " + table;
     }
 
     if (!where.empty()) {
       tmp = sql_cmd;
-      sql_cmd += tmp + " WHERE " + where;
+      sql_cmd = tmp + " WHERE " + where;
     }
 
     if (!order.empty()) {
       tmp = sql_cmd;
-      sql_cmd += tmp + "  ORDER BY " + order;
+      sql_cmd = tmp + "  ORDER BY " + order;
     }
 
     if (!limit.empty()) {
       tmp = sql_cmd;
-      sql_cmd += tmp + "  LIMIT " + order;
+      sql_cmd = tmp + "  LIMIT " + limit;
     }
     sql_cmd += end;
     string ret = db_sql(sql_cmd);
     return ret;
   }
 };
+
 #endif
