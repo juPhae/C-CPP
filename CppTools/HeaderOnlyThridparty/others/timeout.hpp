@@ -1,8 +1,12 @@
 #ifndef __TIMEOUT_HPP__
 #define __TIMEOUT_HPP__
 
+#include <ctime> // std::time_t, std::tm, std::localtime, std::mktime
+#include <functional>
 #include <sys/time.h>
+#include <thread>
 #include <unistd.h>
+#include <vector>
 
 class CTimeOut {
 public:
@@ -50,4 +54,87 @@ private:
   timeval timeout_now;
 };
 
-#endif  //__TIMEOUT_HPP__
+class Timeout : public CTimeOut {
+  bool run_thread = true;
+  std::thread timerThread;
+  std::vector<std::pair<std::time_t, std::function<void()>>> lambdas;
+
+  void threadCore() {
+    while (run_thread) {
+      std::time_t now = std::chrono::system_clock::to_time_t(
+          std::chrono::system_clock::now());
+
+      for (int i = 0; i < lambdas.size(); i++) {
+        int x = lambdas.at(i).first - now;
+        if (x <= 0) {
+          lambdas.at(i).second();             // 执行 lambda
+          lambdas.erase(lambdas.begin() + i); // 删除 lambda
+          i--;
+        }
+      }
+
+      std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    }
+  }
+
+public:
+  //开启一个线程，等待lambdas超时并执行它们
+  Timeout() {
+    timerThread = std::thread([this] { this->threadCore(); });
+  };
+
+  ~Timeout() {
+    run_thread = false;
+    if (timerThread.joinable())
+      timerThread.join();
+  };
+
+  //等待lambdas执行
+  void wait() {
+    while (lambdas.size() > 0) {
+    }
+  }
+
+  //重载
+  void operator()(std::function<void()> lambda, int seconds) {
+    std::time_t now =
+        std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()) +
+        seconds;
+    lambdas.push_back(std::make_pair(now, lambda));
+  }
+};
+
+/**********************************************************************
+*
+*
+
+class CTimeOut:
+-------------------------------------------------------------------------------------
+
+CTimeOut timeout;
+  timeout.set_timeout_msec(50);
+
+  int i = 0;
+  while (1) {
+    i++;
+    std::cout << i << std::endl;
+    if (timeout.is_timeout()) {
+     return;
+    }
+  }
+
+--------------------------------------------------------------------------------------
+
+
+class Timeout:
+-----------------------------------------------------------------------------------
+ Timeout Timeout;
+   Timeout ([]()
+    {
+    std::cout << "Function is executed with 3 seconds delay"<<std::endl;
+    }, 3);
+------------------------------------------------------------------------------------
+*
+**********************************************************************/
+
+#endif //__TIMEOUT_HPP__
