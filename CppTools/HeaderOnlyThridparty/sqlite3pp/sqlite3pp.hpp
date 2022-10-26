@@ -68,7 +68,6 @@ class Sqlite3pp {
             throw std::invalid_argument(error);
         }
     }
-
     ~Sqlite3pp() {
         if (database) sqlite3_close(database);
 
@@ -149,23 +148,22 @@ class Sqlite3pp {
         }
 
         if (!where.empty()) {
-            tmp = sql_cmd;
-            sql_cmd += tmp + " WHERE " + where;
+            tmp = " WHERE " + where;
+            sql_cmd += tmp;
         }
 
         if (!order.empty()) {
-            tmp = sql_cmd;
-            sql_cmd += tmp + "  ORDER BY " + order;
+            tmp = " ORDER BY " + order;
+            sql_cmd += tmp;
         }
 
         if (!limit.empty()) {
-            tmp = sql_cmd;
-            sql_cmd += tmp + "  LIMIT " + order;
+            tmp = " LIMIT " + limit;
+            sql_cmd += tmp;
         }
         sql_cmd += end;
         string ret = db_sql(sql_cmd);
         return ret;
     }
 };
-
 #endif
