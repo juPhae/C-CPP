@@ -34,47 +34,70 @@ public:
 
   // ////////////////////////// 接口部分 //////////////////////////
 
-  // string sql_cmd(string sql) {
-  //   std::string string_array = Sqlite3pp::db_sql(sql);
-  //   return string_array;
-  // }
+  //  根据表名查询一张表
+  std::string queryTable(string table) {
+    std::string retsult = Sqlite3pp::db_select(table, "", "", "", "");
+    return retsult;
+  }
 
-  // string sql_drop(string table) {
-  //   std::string string_array = Sqlite3pp::db_drop(table);
-  //   return string_array;
-  // }
+  //  根据表名列名查询指定的表中的列
+  std::string queryTableByColConditions(string table,
+                                        std::vector<std::string> conditions) {
+    std::string str;
+    for (auto p = conditions.begin(); p != conditions.end(); ++p) {
+      str += *p + " and ";
+    }
+    str = str.substr(0, str.size() - 4);
+    std::string retsult = Sqlite3pp::db_select(table, "", str, "", "");
+    return retsult;
+  }
+  //  根据列的条件查询一张表
+  std::string queryColumnFromTable(string table,
+                                   std::vector<std::string> column) {
+    std::string str;
+    for (auto p = column.begin(); p != column.end(); ++p) {
+      str += *p + ",";
+    }
+    str = str.substr(0, str.size() - 1);
+    std::string retsult = Sqlite3pp::db_select(table, str, "", "", "");
+    return retsult;
+  }
 
-  // string sql_delete(string table, string where) {
-  //   std::string string_array = Sqlite3pp::db_delete(table, where);
-  //   return string_array;
-  // }
+  //  根据排序的条件查询一张表
+  std::string queryTableBySort(string table,
+                               std::vector<std::string> conditions) {
+    std::string str;
+    for (auto p = conditions.begin(); p != conditions.end(); ++p) {
+      str += *p + ",";
+    }
+    str = str.substr(0, str.size() - 1);
+    std::string retsult = Sqlite3pp::db_select(table, "", "", str, "");
+    return retsult;
+  }
 
-  // string sql_create(string table, string col_para) {
-  //   std::string string_array = Sqlite3pp::db_create(table, col_para);
-  //   return string_array;
-  // }
+  //  根据 分页条件查询一张表， index 表示第 i 页， size表示s条
+  std::string queryTableByPage(string table, int index, int size) {
+    std::string str =
+        std::to_string((index - 1) * size) + "," + std::to_string(size);
+    // std::string str = std::to_string(size) + " OFFSET " +
+    // std::to_string(index);
 
-  // string sql_update(string table, string set, string where) {
-  //   std::string string_array = Sqlite3pp::db_update(table, set, where);
-  //   return string_array;
-  // }
+    std::string retsult = Sqlite3pp::db_select(table, "", "", "", str);
+    return retsult;
+  }
 
-  // string sql_insert(string table, string cols, string vals) {
-  //   std::string string_array = Sqlite3pp::db_insert(table, cols, vals);
-  //   return string_array;
-  // }
-  
-  // string sql_select(string table, string colname, string where, string order,
-  //                   string limit) {
-  //   std::string string_array =
-  //       Sqlite3pp::db_select(table, colname, where, order, limit);
-  //   return string_array;
-  // }
+  //  根据 分页条件查询一张表 // num 表示 n行
+  std::string queryTableByNumbers(string table, int num) {
+    std::string str = std::to_string(num);
+    std::string retsult = Sqlite3pp::db_select(table, "", "", "", str);
+    return retsult;
+  }
+
   // ////////////////////////// 接口部分 //////////////////////////
 
 private:
   // 将其构造和析构成为私有的, 禁止外部构造和析构
-  SqlSingleton() : Sqlite3pp("/test.db");   // 使用绝对路径
+  SqlSingleton() : Sqlite3pp("/test.db"); // 使用绝对路径
   ~SqlSingleton() = default;
 
   // 将其拷贝构造和赋值构造成为私有函数, 禁止外部拷贝和赋值
