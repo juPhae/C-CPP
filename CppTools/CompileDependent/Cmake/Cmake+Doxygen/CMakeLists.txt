@@ -70,6 +70,21 @@ include(cmake/build_doxygen.cmake)
 build_doxygen() 
 
 
+# # 时间戳
+string(TIMESTAMP BUILD_TIMESTAMP "%Y-%m-%d %H:%M:%S")
+message("Build timestamp is ${BUILD_TIMESTAMP}")
+
+# # 版本号
+set(VERSION_MAJOR 1)
+set(VERSION_MINOR 0)
+set(VERSION_PATCH 1)
+message("Version is ${VERSION_MAJOR} ${VERSION_MINOR} ${VERSION_PATCH}")
+
+# 加入版本号
+configure_file(cmake/version.h.in version.h)
+INCLUDE_DIRECTORIES(${PROJECT_BINARY_DIR})
+
+
 
 # 添加多个源文件  生成可以执行的文件
 add_executable(main ${SRC_DIR_LIST_1} ${SRC_DIR_LIST_2})

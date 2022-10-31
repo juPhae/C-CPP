@@ -1,0 +1,47 @@
+
+\begin{DoxyCode}
+Cmake+Doxygen
+├── bin
+│   └── main
+├── build
+├── build.sh
+├── CMakeLists.txt
+├── cmake
+│   └── build\_doxygen.cmake
+├── docs
+│   ├── install.sh
+│   ├── Doxygen.in
+│   └── doxygen
+│   │   ├── html
+│   │   └── latex
+├── Doxyfile
+├── doxygen.md
+├── src
+│   ├── main.cpp
+│   ├── Message.cpp
+│   └── Message.hpp
+├── thirdparty
+│   └── dbg
+│   │   └── dbg.hpp
+└── README.md
+\end{DoxyCode}
+
+
+
+\begin{DoxyItemize}
+\item {\bfseries bin\+:} 用于存放生成的可执行文件
+\item {\bfseries bin/main\+:} 生成的可执行文件
+\item {\bfseries build \+:} 用于存放build时cmake产生的中间文件
+\item {\bfseries build.\+sh \+:} build脚本文件。
+\item {\bfseries C\+Make\+Lists.\+txt \+:} cmake文件。
+\item {\bfseries cmake \+:} 用于存放其他的cmake文件。
+\item {\bfseries cmake/build\+\_\+doxygen.\+cmake \+:} 生成doxygen的cmake文件。
+\item {\bfseries Doxyfile \+:} 由cmake构建生成的\+Doxygen文件
+\item {\bfseries doxygen.\+md \+:} doxygen相关的说明文件。
+\item {\bfseries docs \+:} 用于存放项目的相关文档。
+\item {\bfseries docs/install.\+sh \+:} 安装doxygen的脚本文件。
+\item {\bfseries docs/\+Doxygen.\+in \+:} build\+\_\+doxygen.\+cmake中引用的\+Doxygen.\+in，供cmake生成\+Doxygen文件。
+\item {\bfseries src\+:} 用于存放源文件。
+\item {\bfseries thirdparty \+:} 用于存放第三方库，每个第三库以单独目录的形式组织在thirdparty 目录下。
+\item {\bfseries R\+E\+A\+D\+M\+E.\+md \+:} 工程说明文件。 
+\end{DoxyItemize}
