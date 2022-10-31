@@ -1,0 +1,25 @@
+# log配置文件  
+
+# 0通道为多线程屏显输出
+ - channel: 0  
+    priority: debug
+    category: 0
+    category_extend: 0
+    -device: 0
+        disable: true
+        out_type: file
+        priority: debug
+        category: 0
+        category_extend: 0
+        path: "/userdata/mylog/oatppServer/"
+        file: "oatpp-$YEAR-$MON-$DAY"
+        rollback: 4
+        limit_size: 1000 m #only support M byte
+        stuff_up:false
+
+    -device: 1
+        disable: false
+        out_type: screen
+        category: 0
+        category_extend: 0
+        stuff_up:false
