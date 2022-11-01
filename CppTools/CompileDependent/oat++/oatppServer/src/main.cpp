@@ -1,12 +1,13 @@
 // main.cpp
 #include "handler/handler.h"
+#include "logger/fnLog.hpp"
+#include "oatpp-swagger/Controller.hpp"
 #include "oatpp/network/Server.hpp"
 #include "oatpp/network/tcp/server/ConnectionProvider.hpp"
 #include "oatpp/web/server/HttpConnectionHandler.hpp"
-
-#include "logger/fnLog.hpp"
 #include "utils/getHostInfo.hpp"
 #include "version.h"
+
 //  配置文件路径
 #define YAML_FILE_OF_LOGGER "/app/oatpp-server/config/logger.yaml"
 
@@ -43,6 +44,8 @@ void run(std::string ipAddress, int port) {
     // 创建服务器，它接受提供的 TCP 连接并将其传递给 HTTP 连接处理程序
     oatpp::network::Server server(connectionProvider, connectionHandler);
     LogInfoStream(0, 0, 0) << "create Server ";  //
+
+
 
     // 打印服务器端口
     OATPP_LOGI("MyApp", "Server running on port %s", connectionProvider->getProperty("port").getData());

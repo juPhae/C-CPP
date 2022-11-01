@@ -100,13 +100,31 @@ set(CMAKE_INSTALL_RPATH "/app/oatppServer/lib") # set install runtime path
 # 构建install文件夹
 set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR}/install)
 
-# # 查找 oatpp 依赖
+# # 查找 oatpp 依赖和swagger依赖
 find_package(oatpp REQUIRED)
+
+if(oatpp_FOUND)
+    message(STATUS "Found oatpp version: ${oatpp_VERSION_STRING}")
+else()
+    message(FATAL_ERROR "Could not find oatpp")
+endif()
+
+find_package(oatpp-swagger REQUIRED)
+
+if(oatpp-swagger_FOUND)
+    message(STATUS "Found oatpp-swagger version: ${oatpp-swagger_VERSION_STRING}")
+else()
+    message(FATAL_ERROR "Could not find oatpp-swagger")
+endif()
 
 # # 添加多个源文件  生成可以执行的文件
 add_executable(${PROJECT_NAME} ${SRC_DIR_LIST_1})
 
 # # 将目标文件与库文件进行链接
-target_link_libraries(${PROJECT_NAME} oatpp::oatpp)
+target_link_libraries(${PROJECT_NAME} oatpp::oatpp oatpp::oatpp-swagger)
 
+# # define path to swagger-ui res folder
+# add_definitions(
+# -DOATPP_SWAGGER_RES_PATH="${OATPP_BASE_DIR}/bin/oatpp-swagger/res"
+# )
 install(TARGETS ${PROJECT_NAME} DESTINATION .)
