@@ -12,6 +12,7 @@ set(CMAKE_CXX_COMPILER "${ARM_CXX_APTH}arm-linux-gnueabihf-g++")
 
 file(GLOB_RECURSE SRC_DIR_LIST_1 "src/*.cpp" "src/*.c") # 遍历获取src/路径下所有的*.cpp和*.c文件列表
 
+
 # file(GLOB_RECURSE SRC_DIR_LIST_2 "thirdparty/*.cpp" "thirdparty/*.c") # 遍历获取source/路径下所有的*.cpp和*.c文件列表
 
 # 自动查找头文件路径函数(增加去重部分)     # FIND_INCLUDE_DIR()调用时要指定绝对路径
@@ -116,6 +117,13 @@ if(oatpp-swagger_FOUND)
 else()
     message(FATAL_ERROR "Could not find oatpp-swagger")
 endif()
+
+
+add_definitions(
+        ## define path to swagger-ui static resources folder
+        -DOATPP_SWAGGER_RES_PATH="/app/oatpp-server/lib/oatpp-swagger/res"
+
+)
 
 # # 添加多个源文件  生成可以执行的文件
 add_executable(${PROJECT_NAME} ${SRC_DIR_LIST_1})

@@ -1,4 +1,5 @@
 // main.cpp
+#include "SwaggerComponent.hpp"
 #include "handler/handler.h"
 #include "logger/fnLog.hpp"
 #include "oatpp-swagger/Controller.hpp"
@@ -8,6 +9,8 @@
 #include "utils/getHostInfo.hpp"
 #include "version.h"
 
+
+#include "controller/UserController.hpp"
 //  配置文件路径
 #define YAML_FILE_OF_LOGGER "/app/oatpp-server/config/logger.yaml"
 
@@ -33,6 +36,28 @@ void run(std::string ipAddress, int port) {
     // 路由 GET - "/hello" 请求到处理程序
     router->route("GET", "/hello", std::make_shared<Handler>());
 
+    // auto myController = UserController::createShared();
+    // // myController->addEndpointsToRouter(router);
+    // /**
+    //  *  Swagger component
+    //  */
+    // /* create list of endpoints to document */
+    // auto docEndpoints = oatpp::swagger::Controller::Endpoints::createShared();
+    // docEndpoints->pushBackAll(myController->getEndpoints());
+
+    // auto swaggerController = oatpp::swagger::Controller::createShared(docEndpoints);
+    // swaggerController->addEndpointsToRouter(router);
+
+    /**
+     *  Swagger component
+     */
+ oatpp::web::server::api::Endpoints docEndpoints;
+
+  docEndpoints.append(router->addController(UserController::createShared())->getEndpoints());
+
+  router->addController(oatpp::swagger::Controller::createShared(docEndpoints));
+
+
     // 创建 HTTP 连接处理程序
     auto connectionHandler = oatpp::web::server::HttpConnectionHandler::createShared(router);
     LogInfoStream(0, 0, 0) << "create HTTP connect";  //
@@ -44,8 +69,6 @@ void run(std::string ipAddress, int port) {
     // 创建服务器，它接受提供的 TCP 连接并将其传递给 HTTP 连接处理程序
     oatpp::network::Server server(connectionProvider, connectionHandler);
     LogInfoStream(0, 0, 0) << "create Server ";  //
-
-
 
     // 打印服务器端口
     OATPP_LOGI("MyApp", "Server running on port %s", connectionProvider->getProperty("port").getData());
