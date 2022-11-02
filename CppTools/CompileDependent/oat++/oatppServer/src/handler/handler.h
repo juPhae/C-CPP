@@ -11,6 +11,24 @@
 // 自定义请求处理程序
 class Handler : public oatpp::web::server::HttpRequestHandler {
    public:
+
+   /**
+ * @api {Get} /user/get getUserInfo
+ * @apiGroup User
+ *
+ * @apiParam {String} name 文章名
+ * @apiParamExample {json} Request-Example
+ * {
+ *  "userName": "Eve"
+ * }
+ *
+ * @apiSuccessExample  {json} Response-Example
+ * {
+ *   "userName": "Eve",
+ *   "createTime": "1568901681"
+ *   "updateTime": "1568901681"
+ * }
+ */
     // 处理传入的请求，并返回响应
     std::shared_ptr<OutgoingResponse> handle(const std::shared_ptr<IncomingRequest>& request) override {
         O_UNUSED(request);

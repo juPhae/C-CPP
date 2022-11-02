@@ -14,19 +14,19 @@ cd scripts && ./get-oatpp-modules.sh
 
 ## 手动下载：
 
-下载oat++：
+下载oat++(必需)：
 
 ```shell
 git clone https://github.com/oatpp/oatpp.git
 ```
 
-下载oatpp-swagger：
+下载oatpp-swagger(非必要)：
 
 ```
 git clone https://github.com/oatpp/oatpp-swagger.git
 ```
 
-下载oatpp-sqlite：
+下载oatpp-sqlite(非必要)：
 
 ```
 git clone https://github.com/oatpp/oatpp-sqlite.git
@@ -36,7 +36,7 @@ git clone https://github.com/oatpp/oatpp-sqlite.git
 
 ## 安装说明：
 
-## oat++的交叉编译安装说明
+## oat++的交叉编译安装说明（必要）
 
 修改编译器选项：
 
@@ -46,8 +46,6 @@ git clone https://github.com/oatpp/oatpp-sqlite.git
 # # 设置编译器路径
 set(CMAKE_CXX_COMPILER "${ARM_CXX_APTH}arm-linux-gnueabihf-g++")
 ```
-
-
 
 编译和安装：
 
@@ -60,7 +58,7 @@ make && sudo make install
 
 
 
-## oat++的swagger安装说明
+## oat++的swagger安装说明（不推荐）
 
 修改编译器选项：
 
@@ -84,7 +82,7 @@ make && sudo make install
 
 
 
-## oat++的sqlite安装说明
+## oat++的sqlite安装说明（不推荐）
 
 
 
@@ -133,4 +131,17 @@ cp libsqlite.a ../../build/src/
 ```
 
 然后重新回到build目录重新执行 `make && sudo make install`
+
+
+
+
+## apidoc安装说明（推荐）
+
+
+当前node版本 '16.28'
+
+#### 安装 apidoc
+
+若没有node环境则执行安装脚本，scripts/install-apidoc.sh 来安装。
+如果已有则执行 `sudo npm install -g apidoc`来安装。
 

@@ -9,7 +9,6 @@
 #include "utils/getHostInfo.hpp"
 #include "version.h"
 
-
 #include "controller/UserController.hpp"
 //  配置文件路径
 #define YAML_FILE_OF_LOGGER "/app/oatpp-server/config/logger.yaml"
@@ -36,28 +35,6 @@ void run(std::string ipAddress, int port) {
     // 路由 GET - "/hello" 请求到处理程序
     router->route("GET", "/hello", std::make_shared<Handler>());
 
-    // auto myController = UserController::createShared();
-    // // myController->addEndpointsToRouter(router);
-    // /**
-    //  *  Swagger component
-    //  */
-    // /* create list of endpoints to document */
-    // auto docEndpoints = oatpp::swagger::Controller::Endpoints::createShared();
-    // docEndpoints->pushBackAll(myController->getEndpoints());
-
-    // auto swaggerController = oatpp::swagger::Controller::createShared(docEndpoints);
-    // swaggerController->addEndpointsToRouter(router);
-
-    /**
-     *  Swagger component
-     */
- oatpp::web::server::api::Endpoints docEndpoints;
-
-  docEndpoints.append(router->addController(UserController::createShared())->getEndpoints());
-
-  router->addController(oatpp::swagger::Controller::createShared(docEndpoints));
-
-
     // 创建 HTTP 连接处理程序
     auto connectionHandler = oatpp::web::server::HttpConnectionHandler::createShared(router);
     LogInfoStream(0, 0, 0) << "create HTTP connect";  //
@@ -77,6 +54,24 @@ void run(std::string ipAddress, int port) {
     server.run();
 }
 
+// api doc 注释样例
+/**
+ * @api {Get} /user/get getUserInfo
+ * @apiGroup User
+ *
+ * @apiParam {String} name 文章名
+ * @apiParamExample {json} Request-Example
+ * {
+ *  "userName": "Eve"
+ * }
+ *
+ * @apiSuccessExample  {json} Response-Example
+ * {
+ *   "userName": "Eve",
+ *   "createTime": "1568901681"
+ *   "updateTime": "1568901681"
+ * }
+ */
 int main() {
     // 启动日志记录器
     int ret = FNLog::LoadAndStartDefaultLogger(YAML_FILE_OF_LOGGER);
@@ -86,16 +81,15 @@ int main() {
     LogInfoStream(0, 0, 0) << "System V" << VERSIONS;  //
 
     std::string hostName, ipAddress;
-
     bool retsult = GetHostInfo(hostName, ipAddress);
     if (true == retsult) {
         LogInfoStream(0, 0, 0) << "Hostname:" << hostName << " IP:" << ipAddress;  //
     }
     // 初始化 oatpp 环境
     oatpp::base::Environment::init();
-
+    std::string ip = "0.0.0.0";
     // 运行应用
-    run(ipAddress, 8888);
+    run(ip, 8888);
 
     // 销毁 oatpp 环境
     oatpp::base::Environment::destroy();

@@ -12,7 +12,6 @@ set(CMAKE_CXX_COMPILER "${ARM_CXX_APTH}arm-linux-gnueabihf-g++")
 
 file(GLOB_RECURSE SRC_DIR_LIST_1 "src/*.cpp" "src/*.c") # 遍历获取src/路径下所有的*.cpp和*.c文件列表
 
-
 # file(GLOB_RECURSE SRC_DIR_LIST_2 "thirdparty/*.cpp" "thirdparty/*.c") # 遍历获取source/路径下所有的*.cpp和*.c文件列表
 
 # 自动查找头文件路径函数(增加去重部分)     # FIND_INCLUDE_DIR()调用时要指定绝对路径
@@ -101,7 +100,7 @@ set(CMAKE_INSTALL_RPATH "/app/oatppServer/lib") # set install runtime path
 # 构建install文件夹
 set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR}/install)
 
-# # 查找 oatpp 依赖和swagger依赖
+# # 查找 oatpp 依赖
 find_package(oatpp REQUIRED)
 
 if(oatpp_FOUND)
@@ -110,26 +109,11 @@ else()
     message(FATAL_ERROR "Could not find oatpp")
 endif()
 
-find_package(oatpp-swagger REQUIRED)
-
-if(oatpp-swagger_FOUND)
-    message(STATUS "Found oatpp-swagger version: ${oatpp-swagger_VERSION_STRING}")
-else()
-    message(FATAL_ERROR "Could not find oatpp-swagger")
-endif()
-
-
-add_definitions(
-        ## define path to swagger-ui static resources folder
-        -DOATPP_SWAGGER_RES_PATH="/app/oatpp-server/lib/oatpp-swagger/res"
-
-)
-
 # # 添加多个源文件  生成可以执行的文件
 add_executable(${PROJECT_NAME} ${SRC_DIR_LIST_1})
 
 # # 将目标文件与库文件进行链接
-target_link_libraries(${PROJECT_NAME} oatpp::oatpp oatpp::oatpp-swagger)
+target_link_libraries(${PROJECT_NAME} oatpp::oatpp)
 
 # # define path to swagger-ui res folder
 # add_definitions(

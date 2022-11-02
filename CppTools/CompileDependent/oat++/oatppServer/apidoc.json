@@ -1,0 +1,14 @@
+{
+  "name": "RESTful API",
+  "version": "1.0.0",
+  "description": "RESTful API 相关的文档说明",
+  "title": "RESTful API",
+  "url": "https://api.github.com/v1",
+  "sampleUrl": "https://api.github.com/v1/test",
+  "order": [
+    "Error",
+    "Define",
+    "PostTitleAndError",
+    "PostError"
+  ]
+}
