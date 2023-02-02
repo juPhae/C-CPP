@@ -7,6 +7,8 @@ project(main LANGUAGES CXX)
 # 设置编译器
 set(CMAKE_CXX_COMPILER "g++")
 
+
+
 # # 搜集所有在指定路径下的源文件的文件名，将输出结果列表储存在指定的变量中
 # aux_source_directory(./ SRC_LIST)
 
@@ -87,3 +89,4 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
 # 添加多个源文件  生成可以执行的文件
 add_executable(main ${SRC_DIR_LIST_1} ${SRC_DIR_LIST_2})
+

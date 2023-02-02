@@ -14,7 +14,6 @@ file(GLOB_RECURSE SRC_DIR_LIST_2 "thirdparty/*.cpp" "thirdparty/*.c") # 遍历�
 message(STATUS "SRC_DIR_LIST_1 = ${SRC_DIR_LIST_1}") # 打印SRC_DIR_LIST_1中列表信息
 message(STATUS "SRC_DIR_LIST_2 = ${SRC_DIR_LIST_2}") # 打印SRC_DIR_LIST_2中列表信息
 
-
 # 自动查找头文件路径函数(增加去重部分)     # FIND_INCLUDE_DIR()调用时要指定绝对路径
 macro(FIND_INCLUDE_DIR result curdir) # 定义函数,2个参数:存放结果result；指定路径curdir；
     file(GLOB_RECURSE children "${curdir}/*.hpp" "${curdir}/*.h") # 遍历获取{curdir}中*.hpp和*.h文件列表
@@ -62,13 +61,11 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 # 设定存放编译出来的库文件的目录
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
-
 message(STATUS "Build documentation open")
 
 # 引入 build_doxygen
 include(cmake/build_doxygen.cmake)
-build_doxygen() 
-
+build_doxygen()
 
 # # 时间戳
 string(TIMESTAMP BUILD_TIMESTAMP "%Y-%m-%d %H:%M:%S")
@@ -81,10 +78,9 @@ set(VERSION_PATCH 1)
 message("Version is ${VERSION_MAJOR} ${VERSION_MINOR} ${VERSION_PATCH}")
 
 # 加入版本号
+# 需要重新执行cmake才会生效。
 configure_file(cmake/version.h.in version.h)
 INCLUDE_DIRECTORIES(${PROJECT_BINARY_DIR})
-
-
 
 # 添加多个源文件  生成可以执行的文件
 add_executable(main ${SRC_DIR_LIST_1} ${SRC_DIR_LIST_2})
