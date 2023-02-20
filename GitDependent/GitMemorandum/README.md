@@ -27,7 +27,7 @@ Overwrite输入“y”，后面直接按回车，一定不要设置密码
 执行
 
 ```
-cat ~/.ssh/.ssh/id_rsa.pub
+cat ~/.ssh/id_rsa.pub
 ```
 
 ![](./static/SSH-Cancel-erification/cat_newkeygen.png)
@@ -113,5 +113,5 @@ git mv Test_ Test
 
 通过这样来修改，达到只改变首字母的重命名的效果。
 
-### 
+
 
