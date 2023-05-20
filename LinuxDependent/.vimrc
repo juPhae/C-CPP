@@ -1,3 +1,7 @@
+"配置format
+set formatprg=clang-format\ -style=file
+"配置快速格式全文件的 Ctrl+k 快捷键
+map <C-K> :%!clang-format<CR>
 "一个tab显示出来是多少个空格的长度
 set tabstop=2
 "在编辑模式的时候按退格键的时候退回缩进的长度
